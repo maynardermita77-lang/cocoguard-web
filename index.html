@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>CocoGuard - Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css?v=2.1">
+    <!-- Chart.js for dashboard charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="api-client.js?v=2.2"></script>
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/cocoguard_web/service-worker.js')
+                        .then(function(reg) { console.log('Service Worker registered!', reg); })
+                        .catch(function(err) { console.log('Service Worker registration failed:', err); });
+                });
+            }
+        </script>
+</head>
+<body>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="login-page">
+        <div class="login-left">
+            <div class="login-brand">
+                <div class="brand-logo">🥥</div>
+                <div class="brand-kicker" data-i18n="login.brand_kicker">THE NEW ERA OF</div>
+                <div class="brand-title" data-i18n="login.brand_title">AGRICULTURE</div>
+                <div class="brand-name">CocoGuard</div>
+            </div>
+        </div>
+
+        <div class="login-right">
+            <!-- Login Form -->
+            <form id="loginForm" class="login-form" autocomplete="on" onsubmit="return false;">
+                <div class="login-card">
+                    <div class="login-card-header">
+                        <h3 data-i18n="login.title">Login to Pest Management</h3>
+                        <p data-i18n="login.subtitle">Enter your credentials to access the admin panel</p>
+                    </div>
+                    <div id="loginError" class="error-message"></div>
+                    <div class="form-group">
+                        <label for="usernameInput" data-i18n="login.email">Email</label>
+                        <input type="email" id="usernameInput" placeholder="admin@cocoguard.com" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordInput" data-i18n="login.password">Password</label>
+                        <div class="input-icon-group">
+                            <input type="password" id="passwordInput" placeholder="Enter your password" value="">
+                            <span class="input-icon">👁️</span>
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <a id="forgotPasswordLink" class="link-muted" style="cursor: pointer;" data-i18n="login.forgot">Forgot Password?</a>
+                    </div>
+                    <button id="loginBtn" class="btn btn-primary full" data-i18n="login.submit">
+
+                        Login
+                    </button>
+                    <div style="text-align: center; margin: 18px 0 0 0;">
+                        <span style="display:inline-block; color:#6b7280; font-size:15px; font-weight:500; margin: 0 0 10px 0;">or</span>
+                    </div>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <button id="showRegisterBtn" class="btn btn-primary full" type="button">Register / Create Account</button>
+                    </div>
+                </div>
+            </form>
+
+
+            <!-- Register Modal (Step 1: Email) -->
+            <div id="registerModal" class="modal">
+                <div class="modal-overlay"></div>
+                <div class="modal-content">
+                    <div class="modal-title">Create Admin Account</div>
+                    <div id="registerError" class="error-message"></div>
+                    <div id="registerSuccess" class="success-message"></div>
+                    <div id="registerStep1">
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" placeholder="admin@cocoguard.com">
+                        </div>
+                        <button id="sendVerificationCodeBtn" class="btn btn-primary full">Send Verification Code</button>
+                    </div>
+                    <div id="registerStep2" style="display:none;">
+                        <div class="form-group">
+                            <label for="registerCode">Verification Code</label>
+                            <input type="text" id="registerCode" maxlength="6" placeholder="Enter 6-digit code">
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" placeholder="Enter password">
+                        </div>
+                        <button id="registerBtn" class="btn btn-primary full">Register</button>
+                        <div style="text-align:center;margin-top:10px;">
+                            <a id="registerResendCode" style="color:#16a34a;cursor:pointer;">Resend Code</a>
+                        </div>
+                    </div>
+                    <button id="closeRegisterModal" class="btn btn-secondary full" style="margin-top:10px;">Cancel</button>
+                </div>
+            </div>
+
+            <!-- Forgot Password Form -->
+            <form id="forgotPasswordForm" class="login-form hidden" autocomplete="on" onsubmit="return false;">
+                <div class="login-card">
+                    <!-- Step 1: Enter Email -->
+                    <div id="step1-email" class="password-reset-step">
+                        <div class="login-card-header">
+                            <h3 data-i18n="login.forgot_title">Forgot Your Password?</h3>
+                            <p data-i18n="login.forgot_desc">Enter your email address and we'll send you a verification code.</p>
+                        </div>
+                        <div id="forgotError" class="error-message"></div>
+                        <div id="forgotSuccess" class="success-message"></div>
+                        <div class="form-group">
+                            <label for="forgotEmailInput" data-i18n="login.email_address">Email Address</label>
+                            <input type="email" id="forgotEmailInput" placeholder="your-email@example.com" value="">
+                        </div>
+                        <button id="resetLinkBtn" class="btn btn-primary full" data-i18n="login.send_code">
+                            Send Verification Code
+                        </button>
+                        <div style="text-align: center; margin-top: 20px;">
+                            <a id="backToLoginLink" class="link-muted" style="cursor: pointer;" data-i18n="login.back_to_login">← Back to Login</a>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Enter Verification Code -->
+                    <div id="step2-code" class="password-reset-step hidden">
+                        <div class="login-card-header">
+                            <h3 data-i18n="login.enter_code">Enter Verification Code</h3>
+                            <p>We've sent a 6-digit code to <span id="sentToEmail" style="color: #16a34a; font-weight: 600;"></span></p>
+                        </div>
+                        <div id="codeError" class="error-message"></div>
+                        <div id="codeSuccess" class="success-message"></div>
+                        <div class="form-group">
+                            <label for="verificationCodeInput">Verification Code</label>
+                            <input type="text" id="verificationCodeInput" placeholder="Enter 6-digit code" maxlength="6" style="text-align: center; font-size: 24px; letter-spacing: 8px; font-weight: bold;">
+                        </div>
+                        <button id="verifyCodeBtn" class="btn btn-primary full" data-i18n="login.verify_code">
+                            Verify Code
+                        </button>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <span class="link-muted">Didn't receive the code? </span>
+                            <a id="resendCodeLink" class="link-muted" style="cursor: pointer; color: #16a34a; font-weight: 600;">Resend Code</a>
+                        </div>
+                        <div style="text-align: center; margin-top: 10px;">
+                            <a id="backToStep1" class="link-muted" style="cursor: pointer;">← Change Email</a>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Set New Password -->
+                    <div id="step3-password" class="password-reset-step hidden">
+                        <div class="login-card-header">
+                            <h3>Set New Password</h3>
+                            <p>Create a strong password for your account</p>
+                        </div>
+                        <div id="passwordError" class="error-message"></div>
+                        <div id="passwordSuccess" class="success-message"></div>
+                        <div class="form-group">
+                            <label for="newPasswordInput">New Password</label>
+                            <div class="input-icon-group">
+                                <input type="password" id="newPasswordInput" placeholder="Enter new password (min. 6 characters)">
+                                <span class="input-icon toggle-pass-icon">👁️</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPasswordInput">Confirm Password</label>
+                            <div class="input-icon-group">
+                                <input type="password" id="confirmPasswordInput" placeholder="Confirm new password">
+                                <span class="input-icon toggle-pass-icon">👁️</span>
+                            </div>
+                        </div>
+                        <button id="resetPasswordBtn" class="btn btn-primary full">
+                            Reset Password
+                        </button>
+                    </div>
+
+                    <!-- Step 4: Success -->
+                    <div id="step4-success" class="password-reset-step hidden">
+                        <div class="login-card-header" style="text-align: center;">
+                            <div style="font-size: 64px; margin-bottom: 20px;">✅</div>
+                            <h3>Password Reset Successful!</h3>
+                            <p>Your password has been changed successfully. You can now login with your new password.</p>
+                        </div>
+                        <button id="goToLoginBtn" class="btn btn-primary full" style="margin-top: 20px;">
+                            Go to Login
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+    <div id="mainDashboard" class="hidden">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🥥</div>
+                <div class="logo-text">
+                    <h2>CocoGuard</h2>
+                    <p data-i18n="sidebar.subtitle">Admin Panel</p>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a class="nav-link active" data-page="dashboard" href="#dashboard">
+                        <span class="nav-icon">📊</span>
+                        <span data-i18n="nav.dashboard">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="scan" href="#scan">
+                        <span class="nav-icon">📷</span>
+                        <span data-i18n="nav.scan">Scan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="pest-management" href="#pest-management">
+                        <span class="nav-icon">🐛</span>
+                        <span data-i18n="nav.pest_management">Pest Type Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="feedback" href="#feedback">
+                        <span class="nav-icon">💬</span>
+                        <span data-i18n="nav.feedback">User Feedback & Reports</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="knowledge" href="#knowledge">
+                        <span class="nav-icon">📚</span>
+                        <span data-i18n="nav.knowledge">Knowledge Base</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="users" href="#users">
+                        <span class="nav-icon">👥</span>
+                        <span data-i18n="nav.users">User Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="notifications" href="#notifications">
+                        <span class="nav-icon">🔔</span>
+                        <span data-i18n="nav.notifications">Pest Alerts</span>
+                        <span id="navAlertBadge" class="nav-badge hidden">0</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="settings" href="#settings">
+                        <span class="nav-icon">⚙️</span>
+                        <span data-i18n="nav.settings">Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item" style="margin-top: 20px;">
+                    <a class="nav-link" id="logoutBtn" href="#logout">
+                        <span class="nav-icon">🚪</span>
+                        <span data-i18n="nav.logout">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="main-content">
+            <div class="header">
+                <div class="header-left">
+                    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+                        <span></span><span></span><span></span>
+                    </button>
+                    <h1 id="pageTitle" data-i18n="page.dashboard">Dashboard Overview</h1>
+                </div>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="searchInput" placeholder="Search..." data-i18n-placeholder="header.search">
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-avatar" id="avatarDropdownBtn">A</div>
+                        <div class="user-info">
+                            <span id="headerUsername" class="header-username">Admin</span>
+                            <span id="headerEmail" class="header-email"></span>
+                        </div>
+                        <div class="avatar-dropdown" id="avatarDropdown" style="display: none;">
+                            <div class="avatar-dropdown-header">
+                                <div class="dropdown-avatar">A</div>
+                                <div class="dropdown-user-info">
+                                    <span id="dropdownUsername" class="dropdown-username">Admin</span>
+                                    <span id="dropdownEmail" class="dropdown-email"></span>
+                                </div>
+                            </div>
+                            <hr style="margin: 8px 0; border: none; border-top: 1px solid #e5e7eb;">
+                            <ul>
+                                <li id="settingsMenu">Settings</li>
+                                <li id="logoutMenu">Logout</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="successMessage" class="success-message"></div>
+            <div id="pageContainer"></div>
+        </div>
+    </div>
+
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

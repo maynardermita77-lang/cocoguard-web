@@ -1,0 +1,19 @@
+# Database files
+*.db
+
+# IDE
+.vscode/
+.idea/
+
+# Uploads (user-generated content)
+uploads/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Virtual environments
+venv/
+
+# Node modules
+node_modules/
