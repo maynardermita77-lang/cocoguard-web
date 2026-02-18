@@ -1,8 +1,0 @@
-{
-    "name": "cocoguard-web",
-    "compatibility_date": "2026-02-18",
-    "assets": {
-        "directory": "./",
-        "exclude": [".git", ".wrangler", "node_modules", "*.md", "wrangler.jsonc", ".assetsignore", ".gitignore"]
-    }
-}
