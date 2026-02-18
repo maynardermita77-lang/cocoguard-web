@@ -5,17 +5,26 @@
 
 class CocoGuardAPI {
     constructor(baseURL = null) {
+        // Production API URL (Render deployment)
+        const PRODUCTION_API_URL = 'https://cocoguard-backend.onrender.com';
+        
         // Dynamically detect API URL based on current hostname
         // Works for: localhost, LAN IP, mobile hotspot, any network
         const host = window.location.hostname;
         const port = 8000;
         const protocol = window.location.protocol === 'https:' ? 'https' : 'http';
         
-        // Use custom URL from storage if set, otherwise auto-detect
+        // Use custom URL from storage if set, production URL for deployed sites, otherwise auto-detect
         const storedUrl = localStorage.getItem('api_base_url');
+        const isLocal = host === 'localhost' || host === '127.0.0.1' || host.startsWith('192.168.');
+        
         if (storedUrl) {
             this.baseURL = storedUrl;
+        } else if (!isLocal) {
+            // Deployed site (Cloudflare Pages, etc.) → use production backend
+            this.baseURL = PRODUCTION_API_URL;
         } else {
+            // Local development → auto-detect
             this.baseURL = `${protocol}://${host}:${port}`;
         }
         
