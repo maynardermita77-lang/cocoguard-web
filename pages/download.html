@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download CocoGuard App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a5e2a 0%, #2d7a3e 50%, #4CAF50 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 500px;
+        }
+
+        .app-icon {
+            width: 120px;
+            height: 120px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 60px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            font-size: 16px;
+            opacity: 0.85;
+            margin-bottom: 32px;
+        }
+
+        .features {
+            text-align: left;
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .features h3 {
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            padding: 8px 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .features li::before {
+            content: '✓ ';
+            color: #90EE90;
+            font-weight: bold;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: #fff;
+            color: #1a5e2a;
+            text-decoration: none;
+            padding: 16px 48px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.3);
+        }
+
+        .download-btn .icon {
+            margin-right: 8px;
+        }
+
+        .version-info {
+            margin-top: 16px;
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
+        .install-steps {
+            margin-top: 32px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .install-steps h4 {
+            margin-bottom: 12px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .install-steps ol {
+            padding-left: 20px;
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .install-steps li {
+            padding: 4px 0;
+        }
+
+        .web-link {
+            margin-top: 24px;
+        }
+
+        .web-link a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: underline;
+            font-size: 14px;
+        }
+
+        .web-link a:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="app-icon">🥥</div>
+        <h1>CocoGuard</h1>
+        <p class="tagline">Coconut Pest Detection & Management System</p>
+
+        <div class="features">
+            <h3>Features</h3>
+            <ul>
+                <li>AI-powered coconut pest detection</li>
+                <li>Real-time scan analysis with camera</li>
+                <li>Pest management recommendations</li>
+                <li>Scan history & analytics</li>
+                <li>Knowledge base for coconut farming</li>
+                <li>Push notifications & alerts</li>
+            </ul>
+        </div>
+
+        <a href="https://github.com/maynardermita77-lang/cocoguard/releases/download/v1.0.0/cocoguard-v1.0.0.apk" class="download-btn" id="downloadBtn">
+            <span class="icon">📲</span> Download APK
+        </a>
+        <p class="version-info">Version 1.0.0 • Android • ~98 MB</p>
+
+        <div class="install-steps">
+            <h4>📋 Installation Steps:</h4>
+            <ol>
+                <li>Tap <strong>"Download APK"</strong> above</li>
+                <li>Open the downloaded file</li>
+                <li>If prompted, allow <strong>"Install from unknown sources"</strong> in Settings</li>
+                <li>Tap <strong>"Install"</strong> and wait for it to finish</li>
+                <li>Open CocoGuard and create an account!</li>
+            </ol>
+        </div>
+
+        <div class="web-link">
+            <p><a href="../index.html">Or use the Web Admin Dashboard →</a></p>
+        </div>
+    </div>
+</body>
+</html>
