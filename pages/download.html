@@ -13,181 +13,372 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a5e2a 0%, #2d7a3e 50%, #4CAF50 100%);
+            background: #f5f7fa;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            color: #fff;
+            color: #1f2937;
         }
 
-        .container {
+        /* Hero Section */
+        .hero {
+            width: 100%;
+            background: linear-gradient(135deg, #14532d 0%, #15803d 40%, #22c55e 100%);
+            padding: 60px 20px 80px;
             text-align: center;
-            padding: 40px 20px;
-            max-width: 500px;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
         }
 
-        .app-icon {
-            width: 120px;
-            height: 120px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 60px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.2);
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: #f5f7fa;
+            border-radius: 50% 50% 0 0;
         }
 
-        h1 {
-            font-size: 32px;
-            font-weight: 700;
+        .hero-brand {
             margin-bottom: 8px;
         }
 
-        .tagline {
+        .brand-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 44px;
+            margin-bottom: 16px;
+            border: 2px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .brand-kicker {
+            font-size: 14px;
+            letter-spacing: 3px;
+            font-weight: 700;
+            color: #fbbf24;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .brand-title {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2px;
+        }
+
+        .brand-name {
+            font-size: 32px;
+            font-weight: 700;
+            opacity: 0.95;
+        }
+
+        .hero-tagline {
             font-size: 16px;
             opacity: 0.85;
-            margin-bottom: 32px;
+            margin-top: 12px;
+            font-weight: 400;
         }
 
-        .features {
-            text-align: left;
-            background: rgba(255,255,255,0.1);
+        /* Main Content */
+        .content {
+            max-width: 520px;
+            width: 100%;
+            padding: 0 20px;
+            margin-top: -30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Download Card */
+        .download-card {
+            background: #fff;
             border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 32px;
-            backdrop-filter: blur(10px);
+            padding: 32px 28px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .features h3 {
-            margin-bottom: 12px;
-            font-size: 18px;
+        .download-card h2 {
+            font-size: 20px;
+            color: #14532d;
+            margin-bottom: 6px;
         }
 
-        .features ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .features li {
-            padding: 8px 0;
+        .download-card .subtitle {
             font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .features li::before {
-            content: '✓ ';
-            color: #90EE90;
-            font-weight: bold;
+            color: #6b7280;
+            margin-bottom: 24px;
         }
 
         .download-btn {
-            display: inline-block;
-            background: #fff;
-            color: #1a5e2a;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #fff;
             text-decoration: none;
-            padding: 16px 48px;
-            border-radius: 50px;
-            font-size: 18px;
+            padding: 16px 40px;
+            border-radius: 12px;
+            font-size: 17px;
             font-weight: 700;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
         }
 
         .download-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 28px rgba(34, 197, 94, 0.45);
         }
 
-        .download-btn .icon {
-            margin-right: 8px;
+        .download-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
         }
 
         .version-info {
-            margin-top: 16px;
-            font-size: 12px;
-            opacity: 0.6;
-        }
-
-        .install-steps {
-            margin-top: 32px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: left;
-        }
-
-        .install-steps h4 {
-            margin-bottom: 12px;
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .install-steps ol {
-            padding-left: 20px;
+            margin-top: 14px;
             font-size: 13px;
-            opacity: 0.8;
+            color: #9ca3af;
         }
 
-        .install-steps li {
-            padding: 4px 0;
+        .version-info span {
+            margin: 0 6px;
         }
 
-        .web-link {
-            margin-top: 24px;
+        /* Features Card */
+        .features-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
         }
 
-        .web-link a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: underline;
+        .features-card h3 {
+            font-size: 16px;
+            color: #14532d;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
             font-size: 14px;
+            color: #374151;
+            border-bottom: 1px solid #f3f4f6;
         }
 
-        .web-link a:hover {
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .feature-icon.green { background: #dcfce7; }
+        .feature-icon.blue { background: #dbeafe; }
+        .feature-icon.yellow { background: #fef3c7; }
+        .feature-icon.purple { background: #ede9fe; }
+        .feature-icon.red { background: #fee2e2; }
+        .feature-icon.teal { background: #ccfbf1; }
+
+        /* Install Steps Card */
+        .steps-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .steps-card h3 {
+            font-size: 16px;
+            color: #14532d;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            counter-reset: steps;
+        }
+
+        .steps-list li {
+            counter-increment: steps;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 10px 0;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .steps-list li::before {
+            content: counter(steps);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
             color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .steps-list li strong {
+            color: #15803d;
+        }
+
+        /* Footer link */
+        .footer-link {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+
+        .footer-link a {
+            color: #16a34a;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .footer-link a:hover {
+            color: #15803d;
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .hero {
+                padding: 40px 16px 60px;
+            }
+            .brand-title {
+                font-size: 32px;
+            }
+            .brand-name {
+                font-size: 24px;
+            }
+            .download-btn {
+                padding: 14px 32px;
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="app-icon">🥥</div>
-        <h1>CocoGuard</h1>
-        <p class="tagline">Coconut Pest Detection & Management System</p>
 
-        <div class="features">
-            <h3>Features</h3>
-            <ul>
-                <li>AI-powered coconut pest detection</li>
-                <li>Real-time scan analysis with camera</li>
-                <li>Pest management recommendations</li>
-                <li>Scan history & analytics</li>
-                <li>Knowledge base for coconut farming</li>
-                <li>Push notifications & alerts</li>
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-brand">
+            <div class="brand-logo">🥥</div>
+            <div class="brand-kicker">THE NEW ERA OF</div>
+            <div class="brand-title">AGRICULTURE</div>
+            <div class="brand-name">CocoGuard</div>
+        </div>
+        <p class="hero-tagline">Coconut Pest Detection & Management System</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+
+        <!-- Download Card -->
+        <div class="download-card">
+            <h2>Download for Android</h2>
+            <p class="subtitle">Get CocoGuard on your mobile device</p>
+            <a href="https://github.com/maynardermita77-lang/cocoguard/releases/download/v1.0.0/cocoguard-v1.0.0.apk" class="download-btn" id="downloadBtn">
+                <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18L5.33 9h3.67v4h4V9h3.67L12 2z" transform="rotate(180 12 12)"/></svg>
+                Download APK
+            </a>
+            <div class="version-info">
+                <span>v1.0.0</span> &bull; <span>Android 5.0+</span> &bull; <span>~98 MB</span>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features-card">
+            <h3>App Features</h3>
+            <ul class="feature-list">
+                <li>
+                    <div class="feature-icon green">🔬</div>
+                    AI-powered coconut pest detection
+                </li>
+                <li>
+                    <div class="feature-icon blue">📸</div>
+                    Real-time scan analysis with camera
+                </li>
+                <li>
+                    <div class="feature-icon yellow">💡</div>
+                    Pest management recommendations
+                </li>
+                <li>
+                    <div class="feature-icon purple">📊</div>
+                    Scan history & analytics dashboard
+                </li>
+                <li>
+                    <div class="feature-icon teal">📚</div>
+                    Knowledge base for coconut farming
+                </li>
+                <li>
+                    <div class="feature-icon red">🔔</div>
+                    Push notifications & pest alerts
+                </li>
             </ul>
         </div>
 
-        <a href="https://github.com/maynardermita77-lang/cocoguard/releases/download/v1.0.0/cocoguard-v1.0.0.apk" class="download-btn" id="downloadBtn">
-            <span class="icon">📲</span> Download APK
-        </a>
-        <p class="version-info">Version 1.0.0 • Android • ~98 MB</p>
-
-        <div class="install-steps">
-            <h4>📋 Installation Steps:</h4>
-            <ol>
-                <li>Tap <strong>"Download APK"</strong> above</li>
-                <li>Open the downloaded file</li>
-                <li>If prompted, allow <strong>"Install from unknown sources"</strong> in Settings</li>
-                <li>Tap <strong>"Install"</strong> and wait for it to finish</li>
-                <li>Open CocoGuard and create an account!</li>
+        <!-- Installation Steps -->
+        <div class="steps-card">
+            <h3>How to Install</h3>
+            <ol class="steps-list">
+                <li>Tap <strong>Download APK</strong> above</li>
+                <li>Open the downloaded file from your notification bar</li>
+                <li>If prompted, enable <strong>Install from unknown sources</strong> in your phone settings</li>
+                <li>Tap <strong>Install</strong> and wait for it to complete</li>
+                <li>Open CocoGuard and create your account!</li>
             </ol>
         </div>
 
-        <div class="web-link">
-            <p><a href="../index.html">Or use the Web Admin Dashboard →</a></p>
+        <!-- Footer Link -->
+        <div class="footer-link">
+            <a href="../index.html">Admin Dashboard &rarr;</a>
         </div>
+
     </div>
+
 </body>
 </html>
