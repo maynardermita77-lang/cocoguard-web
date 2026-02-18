@@ -33,11 +33,9 @@ function getKnowledgeImageUrl(imageUrl) {
         return trimmedUrl;
     }
     
-    // Get just the filename
-    const filename = trimmedUrl.split('/').pop();
-    
-    // Construct the full URL to the API server's uploads endpoint
-    return `${API_BASE_URL}/uploads/files/${filename}`;
+    // Preserve the original path from the backend
+    // Images can be at /assets/knowledge/ (seeded) or /uploads/files/ (admin-uploaded)
+    return `${API_BASE_URL}${trimmedUrl.startsWith('/') ? '' : '/'}${trimmedUrl}`;
 }
 
 // Get auth token
