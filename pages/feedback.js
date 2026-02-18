@@ -68,8 +68,10 @@ async function loadFeedbacks() {
         if (typeof apiClient !== 'undefined') {
             feedbacks = await apiClient.request('/feedback/', { method: 'GET' });
         } else {
-            // fallback fetch - use dynamic hostname
-            const apiBase = `${window.location.protocol}//${window.location.hostname}:8000`;
+            // fallback fetch - use production URL for deployed sites
+            const host = window.location.hostname;
+            const isLocal = host === 'localhost' || host === '127.0.0.1' || host.startsWith('192.168.');
+            const apiBase = isLocal ? `${window.location.protocol}//${host}:8000` : 'https://cocoguard-backend.onrender.com';
             const response = await fetch(`${apiBase}/feedback/`);
             feedbacks = await response.json();
         }

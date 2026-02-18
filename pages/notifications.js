@@ -348,7 +348,11 @@ function viewNotificationDetails(notificationId) {
     // Get image URL from notification - use dynamic hostname
     let imageUrl = '';
     if (notification.image_url) {
-        const apiBase = `${window.location.protocol}//${window.location.hostname}:8000`;
+        const host = window.location.hostname;
+        const isLocal = host === 'localhost' || host === '127.0.0.1' || host.startsWith('192.168.');
+        const apiBase = (typeof apiClient !== 'undefined' && apiClient.baseURL)
+            ? apiClient.baseURL
+            : isLocal ? `${window.location.protocol}//${host}:8000` : 'https://cocoguard-backend.onrender.com';
         imageUrl = notification.image_url.startsWith('http') ? 
             notification.image_url : 
             `${apiBase}${notification.image_url}`;

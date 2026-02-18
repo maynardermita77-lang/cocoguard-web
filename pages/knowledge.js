@@ -15,7 +15,11 @@
 
     // Use window to avoid redeclaration
     if (typeof window.KNOWLEDGE_API_BASE_URL === 'undefined') {
-        window.KNOWLEDGE_API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:8000`;
+        const host = window.location.hostname;
+        const isLocal = host === 'localhost' || host === '127.0.0.1' || host.startsWith('192.168.');
+        window.KNOWLEDGE_API_BASE_URL = (typeof apiClient !== 'undefined' && apiClient.baseURL)
+            ? apiClient.baseURL
+            : isLocal ? `${window.location.protocol}//${host}:8000` : 'https://cocoguard-backend.onrender.com';
     }
     var API_BASE_URL = window.KNOWLEDGE_API_BASE_URL;
 

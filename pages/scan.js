@@ -82,7 +82,7 @@ function getFullImageUrl(imageUrl) {
     // Get API base URL safely
     const baseUrl = (typeof apiClient !== 'undefined' && apiClient.baseURL) 
         ? apiClient.baseURL 
-        : `${window.location.protocol}//${window.location.hostname}:8000`;
+        : (() => { const h = window.location.hostname; return (h === 'localhost' || h === '127.0.0.1' || h.startsWith('192.168.')) ? `${window.location.protocol}//${h}:8000` : 'https://cocoguard-backend.onrender.com'; })();
     // Prepend API base URL for relative paths
     return baseUrl + imageUrl;
 }
